@@ -18,7 +18,7 @@
 
 /// $ModAuthor: Peter "SaberUK" Powell
 /// $ModAuthorMail: petpow@saberuk.com
-/// $ModDepends: core 3.0
+/// $ModDepends: core 3
 /// $ModDesc: Requires users to solve a basic maths problem before messaging others.
 
 
@@ -58,7 +58,7 @@ class CommandSolve : public SplitCommand
 			return CMD_FAILURE;
 		}
 
-		int result = ConvToInt(parameters[0]);
+		int result = ConvToNum<int>(parameters[0]);
 		if (result != (problem->first + problem->second))
 		{
 			user->WriteNotice(InspIRCd::Format("*** %s is not the correct answer.", parameters[0].c_str()));
@@ -85,7 +85,7 @@ class ModuleSolveMessage : public Module
 	{
 	}
 
-	void OnUserInit(LocalUser* user) CXX11_OVERRIDE
+	void OnUserPostInit(LocalUser* user) CXX11_OVERRIDE
 	{
 		Problem problem;
 		problem.first = ServerInstance->GenRandomInt(9);

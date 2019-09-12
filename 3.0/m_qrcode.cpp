@@ -23,7 +23,7 @@
 /// $ModAuthorMail: petpow@saberuk.com
 /// $ModDesc: Provides support for QR code generation via the /QRCODE command.
 /// $ModConfig: <qrcode blockchar=" " darkcolour="black" lightcolour="white">
-/// $ModDepends: core 3.0
+/// $ModDepends: core 3
 
 
 #include "inspircd.h"
@@ -258,7 +258,7 @@ class ModuleQRCode : public Module
 		if (name == "pink")
 			return "13";
 
-		if (name == "gray" | name == "grey")
+		if (name == "gray" || name == "grey")
 			return "14";
 
 		if (name == "lightgray" || name == "lightgrey")
@@ -266,7 +266,7 @@ class ModuleQRCode : public Module
 
 		if (name.find_first_not_of("0123456789") == std::string::npos)
 		{
-			const long value = ConvToInt(name);
+			const unsigned long value = ConvToNum<unsigned long>(name);
 			if (value >= 0 && value <= 99)
 				return ConvToStr(value);
 		}

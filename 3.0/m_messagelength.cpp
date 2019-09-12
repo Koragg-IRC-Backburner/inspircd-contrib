@@ -20,7 +20,7 @@
 /// $ModAuthor: Peter "SaberUK" Powell
 /// $ModAuthorMail: petpow@saberuk.com
 /// $ModDesc: Adds a channel mode which limits the length of messages.
-/// $ModDepends: core 3.0
+/// $ModDepends: core 3
 
 #include "inspircd.h"
 
@@ -30,6 +30,9 @@ class MessageLengthMode : public ParamMode<MessageLengthMode, LocalIntExt>
 	MessageLengthMode(Module* Creator)
 		: ParamMode<MessageLengthMode, LocalIntExt>(Creator, "message-length", 'W')
 	{
+#if defined INSPIRCD_VERSION_SINCE && INSPIRCD_VERSION_SINCE(3, 2)
+		syntax = "<max-length>";
+#endif
 	}
 
 	ModeAction OnSet(User*, Channel* channel, std::string& parameter)
